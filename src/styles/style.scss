@@ -1,0 +1,29 @@
+$background_color_primary : rgb( 0,0,0);
+$background_color_secondary : rgb(40, 35, 35);
+html, body {
+  margin: 0;
+}
+body {
+  background: $background_color_primary;
+}
+.container{
+  height: 100vh;
+  background-color:$background_color_secondary;
+  margin: 0 auto;
+  @media (min-width: 769px){
+    width: 40%;
+  }
+
+}
+
+.container-center{
+  position: absolute;
+  
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  
+}
+.player-content{
+  width: 50%!important;
+}
