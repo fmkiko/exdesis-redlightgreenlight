@@ -158,7 +158,7 @@ También disponemos de un customEvent para informar a los otros componentes del 
                 ...
   
   ### webpack.config.js:
-  Sumas los loader css, sass, html 'para pasar de html a plantilla js', el babel-loader para la compatibilidad, y el plgin HTML.
+  Se usan los loader css, sass, html 'para pasar de html a plantilla js', el babel-loader para la compatibilidad, y el plgin HTML.
             
             const path = require('path');
             const HTMLweb = require('html-webpack-plugin');
