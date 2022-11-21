@@ -3,10 +3,10 @@ import { Subject } from 'rxjs';
 export default class StorgeData{
 
     static playerSubject = new Subject();
-    static playerSubject$ =this.playerSubject.asObservable();
+    static playerSubject$ = this.playerSubject.asObservable();
 
     static playerName;
-    static listPlayer = []; // {name,score}
+    static listPlayer = []; 
     static collection = "dataPlayers"
 
     // Método para grabar datos del player
