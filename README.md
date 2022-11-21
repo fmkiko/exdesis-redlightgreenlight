@@ -158,7 +158,16 @@ También disponemos de un customEvent para informar a los otros componentes del 
                     }
                 }
                 ...
-  
+    5- El StoregeData ha sido refactoriado, para listar la lista de players. A traves de un subject notificamos al component lista.component.js los cambios del array.
+        
+        static playerSubject = new Subject();
+        static playerSubject$ =this.playerSubject.asObservable();
+        ...
+
+        // Notifica cambios
+        this.playerSubject.next(this.listPlayer);
+
+
   ### webpack.config.js:
   Se usan los loader css, sass, html 'para pasar de html a plantilla js', el babel-loader para la compatibilidad, y el plgin HTML.
             
