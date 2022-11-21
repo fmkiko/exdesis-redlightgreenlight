@@ -1,7 +1,9 @@
 # exdesis-redlightgreenlight
 
 Deploy en server:
+
 1- Descargar e instalar las dependencias.
+
 ### En la terminal del proyecto:
     npm install
 2- Realiar el build.
