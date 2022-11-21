@@ -2,6 +2,7 @@
 import LoginComponent from '../components/login/login.component.js';
 import PlayerComponent from '../components/player-screen/player.component.js';
 import NavbarComponent from '../components/navbar/navbar.component.js';
+import PlayersList from '../components/lista/lista.component.js';
 import loginPage from '../pages/login.html';
 import playerPage from '../pages/player.html';
 import StorgeData from '../components/services/StorageData.js';
@@ -31,6 +32,9 @@ export default class RouterComponent extends HTMLElement{
           }
         if (typeof customElements.get('navbar-component') === 'undefined') {
             customElements.define('navbar-component', NavbarComponent);
+          }
+        if (typeof customElements.get('list-component') === 'undefined') {
+            customElements.define('list-component', PlayersList);
           }
     }
 

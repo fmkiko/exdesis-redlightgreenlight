@@ -38,7 +38,6 @@ export default class PlayerComponent extends HTMLElement{
         this.btnRight = this.swObj.querySelector('[mane=right]');
         this.btnLeft = this.swObj.querySelector('[name=left]');
         this.light = this.swObj.querySelector('[name=icon]');
-        console.log(this.light);
         this.showScore = this.swObj.querySelector('#score');
         this.getSession(this.playerName);
         
