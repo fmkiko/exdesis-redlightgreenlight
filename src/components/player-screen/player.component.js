@@ -115,8 +115,7 @@ export default class PlayerComponent extends HTMLElement{
           .btn-player{
             padding: 10px 0px;
             width: 25%;
-           
-            background-color: rgb(132, 193, 246);
+            background-color: #45f3ff;
             font-weight: bold;
             border: 0px;
             border-radius: 5px;

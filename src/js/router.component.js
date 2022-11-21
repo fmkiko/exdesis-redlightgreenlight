@@ -73,7 +73,6 @@ export default class RouterComponent extends HTMLElement{
                 }
             })
         }
-      
     }
     session(data){
         StorgeData.playerName = data.player;

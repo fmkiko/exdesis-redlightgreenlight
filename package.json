@@ -6,15 +6,24 @@
   "author": "kiko",
   "license": "ISC",
   "scripts": {
-    "build": "webpack --watch"
+    "build": "webpack --watch",
+    "test": "karma start"
   },
   "devDependencies": {
     "@babel/core": "^7.20.2",
     "@babel/preset-env": "^7.20.2",
+    "@webcomponents/webcomponentsjs": "^2.7.0",
     "babel-loader": "^9.1.0",
     "css-loader": "^6.7.2",
     "html-loader": "^4.2.0",
     "html-webpack-plugin": "^5.5.0",
+    "jasmine": "^4.5.0",
+    "karma": "^6.4.1",
+    "karma-chrome-launcher": "^3.1.1",
+    "karma-edge-launcher": "^0.4.2",
+    "karma-firefox-launcher": "^2.1.2",
+    "karma-jasmine": "^5.1.0",
+    "karma-spec-reporter": "^0.0.34",
     "sass": "^1.56.1",
     "sass-loader": "^13.2.0",
     "style-loader": "^3.3.1",

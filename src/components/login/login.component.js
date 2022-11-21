@@ -95,7 +95,7 @@ export default class LoginComponent extends HTMLElement{
                 padding: 10px;
                 font-size: 15px;
                 font-weight: bold;
-                background-color: rgb(132, 193, 246);
+                background-color: #45f3ff;
                 border: none;
                 height: 50px;
                 border-radius: 5px;

@@ -26,10 +26,9 @@ export default class NavbarComponent extends HTMLElement{
     init(){
         
         this.namePalyer = StorgeData.playerName;
-      
         this.showName = this.swObj.querySelector('#player');
         this.logout = this.swObj.querySelector('#logout');
-        this.getSession(this.namePalyer);
+        this.showName.innerText = this.getSession(this.namePalyer);
     }
 
     render(){
@@ -40,7 +39,7 @@ export default class NavbarComponent extends HTMLElement{
     
     getSession(playerName){
         const sessionObj = StorgeData.getPlayer(playerName);
-        this.showName.innerText = "Hi " + sessionObj.name;
+        return "Hi " + sessionObj.name;
     }
        
     getTemplate(){
