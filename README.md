@@ -1,7 +1,9 @@
 # exdesis-redlightgreenlight
 
 Deploy en server:
+
 1- Descargar e instalar las dependencias.
+
 ### En la terminal del proyecto:
     npm install
 2- Realiar el build.
@@ -13,11 +15,11 @@ Deploy en server:
     src -> encontramos
                 -> index.html 
                 -> components - carpeta donde están los web component
-                -> js - encontramos el index.js el el archivo root de la app, el router.component.js
+                -> js - encontramos el index.js archivo root de la app, el router.component.js
                 -> pages - los html
                 -> test -los archivos .test.js para las pruebas.
 ### Explicativo:
-    1- index.html tenemos el componente  roter-outlet, es el router de la app:
+1- index.html tenemos el componente  roter-outlet, es el router de la app:
         
         <body>
             <div class="container">
@@ -25,7 +27,7 @@ Deploy en server:
             </div>
         </body>
 
-    2- En el index.js, importamos los styles y los icons además de hacer el define del componente router:
+2- En el index.js, importamos los styles y los icons además de hacer el define del componente router:
 
         import '../styles/style.scss';
         import '../../node_modules/font-awesome/css/font-awesome.min.css';
@@ -33,7 +35,7 @@ Deploy en server:
         import RouterComponent from '../js/router.component.js';
         customElements.define('router-outlet', RouterComponent);
 
-    3- En el componente router, realizamos los define de los componentes hijos:
+3- En el componente router, realizamos los define de los componentes hijos:
         
         setChildComponent(){
         if (typeof customElements.get('login-component') === 'undefined') {
@@ -47,7 +49,7 @@ Deploy en server:
           }
         }
 
-    En él también tenemos un oyente sobre el resultado del login:
+En él también tenemos un oyente sobre el resultado del login:
 
         listenerLogin(){
             if( this.querySelector('login-component')){
@@ -62,7 +64,7 @@ Deploy en server:
             }
         }
 
-    El router lo realizamos por index page y change hash:
+El router lo realizamos por index page y change hash:
 
         getComponentToRender(pagesIndex){
             switch(pagesIndex) {
@@ -75,7 +77,7 @@ Deploy en server:
                 }
         }
 
-    Change hash:
+Change hash:
 
         handleURL() {
             switch(window.location.hash) {
@@ -92,7 +94,7 @@ Deploy en server:
             this.render()
         }
     
-    También abrimos sesión apoyándonos en un servicio StoregeData, clase con métodos estáticos.
+También abrimos sesión apoyándonos en un servicio StoregeData, clase con métodos estáticos.
 
         session(data){
             StorgeData.playerName = data.player;
@@ -101,9 +103,8 @@ Deploy en server:
             }
         }
 
-    4- Tenemos componentes encapsulados con el mode 'open', los cuales renderizan las pages según son llamados por el router.
-
-        LoginComponent, una vez cargado a través del  connectedCallback() , inicializamos y creamos los eventos para el click del button y el focus de input:
+4- Tenemos componentes encapsulados con el mode 'open', los cuales renderizan las pages según son llamados por el router.
+LoginComponent, una vez cargado a través del  connectedCallback() , inicializamos y creamos los eventos para el click del button y el focus de input:
 
         connectedCallback() {
             this.init();
@@ -118,7 +119,7 @@ Deploy en server:
             })
         }
 
-        También disponemos de un customEvent para informar a los otros componentes del estado del login:
+También disponemos de un customEvent para informar a los otros componentes del estado del login:
             
             fireDatosLogin(){
                 this.dispatchEvent(new CustomEvent('status-login', {
@@ -128,30 +129,81 @@ Deploy en server:
                     }
                 }));
             }
-        Un validator método para validar el nombre no es vacío, y un método getTampllace() para devolver la plantilla.
-        Por otro lado, este componente pude ser configurado en la plantilla donde se usa, a través de slot.
-        login.html
-            <login-component
-                title = "Create New Player"
-                btn-name="Join"
-                icon ="">
-                <div slot="icon" style="color: white">
-                    <i style="font-size: 70px;"class="fa fa-user-o" aria-hidden="true"></i>
-                </div>
-            </login-component> 
+  
+  Un validator método para validar el nombre no es vacío, y un método getTampllace() para devolver la plantilla.
+  Por otro lado, este componente pude ser configurado en la plantilla donde se usa, a través de slot en el login.html
         
-        NavBarComponent: Encargadod de representar la navegación, solo visible en player.
-        Es simple, con el nombre del player y el logout. Sige la misma estructura, que las otras, y 
-        se apoya en el servicio para recuperar la sessión.
+        
+  NavBarComponent: Encargadod de representar la navegación, solo visible en player.
+  Es simple, con el nombre del player y el logout. Sige la misma estructura, que las otras, y 
+  se apoya en el servicio para recuperar la sessión.
 
                 getSession(playerName){
                     const sessionObj = StorgeData.getPlayer(playerName);
                     return "Hi " + sessionObj.name;
                 }
         
-        En el componente player es donde recae la funcionalidad del juego, sigue la misma estructura que los
-        componentes anteriores.
+   En el componente player es donde recae la funcionalidad del juego, sigue la misma estructura que los
+   componentes anteriores.
 
-    5- Clase  StoregeData.js es una clase con métodos estáticos para realizar el CRUD sobre el localStorage,
-       al estar constitida con métodos estáticos no se tiene que instanciar.
+   5- Clase  StoregeData.js es una clase con métodos estáticos para realizar el CRUD sobre el localStorage,
+            
+            export default class StorgeData{
+                static playerName;
+                // Método para grabar datos del player
+                static saveData(objetPlayer){
+                    const player = this.getPlayer(objetPlayer.name);
+                    if(!player){
+                        localStorage.setItem(objetPlayer.name, JSON.stringify(objetPlayer));
+                    }
+                }
+                ...
+  
+  ### webpack.config.js:
+  Se usan los loader css, sass, html 'para pasar de html a plantilla js', el babel-loader para la compatibilidad, y el plgin HTML.
+            
+            const path = require('path');
+            const HTMLweb = require('html-webpack-plugin');
+
+            module.exports = {
+                mode: 'development',
+                entry: { 
+                    index: './src/js/index.js',
+
+                },
+                output: {
+                    filename: '[name].js',
+                    path: path.resolve(__dirname, 'dist/')
+                },
+
+                module: {
+                    rules: [
+                        { test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader'  },
+                        {
+                            test: /\.css$/i,
+                            use: [ 'style-loader', 'css-loader']
+                        },
+                        {   
+
+                            test: /\.s[ac]ss$/i, 
+                            use: [ 'style-loader', 'css-loader', 'sass-loader' ]
+                        },
+                        {
+                            test: /\.html$/i,
+                            loader: "html-loader",
+                        },
+
+                    ]
+                },
+                plugins: [
+                    new HTMLweb({
+                        template: './src/index.html'
+                    })
+                ]
+
+            }
+  
+  
+        
+       
 
